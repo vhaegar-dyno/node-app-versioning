@@ -1,0 +1,12 @@
+node_modules
+
+
+# Ignore all .env files
+.env
+.env.*
+
+# Allow only .env.example files
+!.env.example
+!.env.*.example
+
+# config
