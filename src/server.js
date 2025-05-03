@@ -6,6 +6,5 @@ const logger = require('./config/logger');
 app.listen(port, whitelistIP, () => {
 	logger.info(`🖥️ 🚀  Server is running on process ${process.pid} at port ${port}`);
 	logger.info(`Server URL: ${serverUrl}/api`);
-	// stopping db connection for now
 	// dbConnect();
 });
