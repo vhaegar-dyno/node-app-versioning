@@ -1,0 +1,31 @@
+{
+	"verbose": true,
+	"moduleFileExtensions": ["js", "json"],
+	"rootDir": ".",
+	"testEnvironment": "node",
+	"testRegex": ".*\\.e2e\\.spec\\.js$",
+	"transform": {},
+	"testTimeout": 30000,
+	"setupFiles": ["<rootDir>/jest.setup.js"],
+	"detectOpenHandles": true,
+	"forceExit": true,
+	"moduleNameMapper": {
+		"^@/(.*)$": "<rootDir>/src/$1",
+		"^@config/(.*)$": "<rootDir>/src/config/$1",
+		"^@clients/(.*)$": "<rootDir>/src/clients/$1",
+		"^@libs/(.*)$": "<rootDir>/src/libs/$1",
+		"^@utils/(.*)$": "<rootDir>/src/utils/$1",
+		"^@constants/(.*)$": "<rootDir>/src/constants/$1",
+		"^@helpers/(.*)$": "<rootDir>/src/helpers/$1",
+		"^@middlewares/(.*)$": "<rootDir>/src/middleware/$1",
+		"^@modules/(.*)$": "<rootDir>/src/modules/$1",
+		"^@testing/(.*)$": "<rootDir>/src/testing/$1",
+		"^@logger$": "<rootDir>/src/config/logger.js/$1",
+		"^@core/(.*)$": "<rootDir>/src/modules/core/$1",
+		"^@auth/(.*)$": "<rootDir>/src/modules/auth/$1",
+		"^@devices/(.*)$": "<rootDir>/src/modules/devices/$1",
+		"^@webhook/(.*)$": "<rootDir>/src/modules/webhook/$1",
+		"^@logiq/(.*)$": "<rootDir>/src/modules/logiq/$1",
+		"^@libs/(.*)$": "<rootDir>/src/libs/$1"
+	}
+}

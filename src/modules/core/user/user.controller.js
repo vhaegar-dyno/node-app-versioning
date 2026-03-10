@@ -1,5 +1,5 @@
-const ApiError = require('../../../middleware/apiError');
-const Response = require('../../../middleware/response');
+const ApiError = require('@middlewares/apiError');
+const Response = require('@middlewares/response');
 const UserServices = require('./user.service');
 
 const loginUser = async (req, res) => {

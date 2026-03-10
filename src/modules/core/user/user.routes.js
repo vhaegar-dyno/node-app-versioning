@@ -1,5 +1,5 @@
 const { loginUser, createUser, getUsersByOrganizationId } = require('./user.controller');
-const auth = require('../../../middleware/auth');
+const auth = require('@middlewares/auth');
 
 const router = require('express').Router();
 

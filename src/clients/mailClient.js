@@ -1,13 +1,25 @@
 const nodemailer = require('nodemailer');
-const config = require('../config/config');
+const config = require('@config/config');
+
+const mailConfig = {
+	...(config.env === 'development'
+		? { service: 'gmail' }
+		: {
+			host: 'smtp.office365.com',
+			port: 587,
+			name: 'holmiumtechnologies.com',
+			secure: false,
+		}),
+};
 
 const mailClient = nodemailer.createTransport({
-	service: 'gmail',
-	port: 587,
-	pool: true, // Todo: should debug once, maybe not required now in new version
+	...mailConfig,
 	auth: {
-		user: config.gmail.username,
-		pass: config.gmail.password,
+		user: config.email.username,
+		pass: config.email.password,
+	},
+	tls: {
+		rejectUnauthorized: false, // Optional: helps avoid certificate issues in dev
 	},
 });
 

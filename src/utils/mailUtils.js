@@ -1,27 +1,27 @@
 const mailClient = require('../clients/mailClient');
-const config = require('../config/config');
-const ApiError = require('../middleware/apiError');
+const config = require('@config/config');
+const ApiError = require('@middlewares/apiError');
 const { sendMailSchema } = require('../validation/mail.dto');
 
 class MailUtils {
 	constructor(gmailClient = mailClient) {
 		this.gmailClient = gmailClient;
-		this.logger = require('../config/logger');
-		this.JoiValidationPipe = require('../middleware/joiValidation');
+		this.logger = require('@config/logger');
+		this.JoiValidationPipe = require('@middlewares/joiValidation');
 	}
 
 	async sendMail(mailOptions) {
 		try {
 			const sanitizedOptions = this.JoiValidationPipe.validate(sendMailSchema, mailOptions);
-			sanitizedOptions['from'] = `${config.gmail.displayName} ${config.gmail.senderEmail}`;
+			sanitizedOptions['from'] = `${config.email.displayName} ${config.email.senderEmail}`;
 
 			if (config.env !== 'production') {
-				sanitizedOptions['to'] = config.gmail.devEmail;
+				sanitizedOptions['to'] = config.email.devEmail;
 				sanitizedOptions['cc'] = undefined;
 				sanitizedOptions['bcc'] = undefined;
 			}
 
-			const sendMail = await this.gmailClient.sendMail(sanitizedOptions);
+			const sendMail = await this.gmailClient.sendMail({ ...sanitizedOptions });
 			if (!sendMail.messageId) throw ApiError.badRequest('Failed to send mail');
 
 			this.logger.info(' 📧  Mail sent to: ' + sanitizedOptions.to);

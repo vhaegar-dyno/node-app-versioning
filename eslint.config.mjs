@@ -1,6 +1,7 @@
 import globals from 'globals';
 import eslint from '@eslint/js';
 import eslintConfigPrettier from 'eslint-config-prettier';
+import pluginJest from 'eslint-plugin-jest';
 
 export default [
 	eslint.configs.recommended,
@@ -17,8 +18,26 @@ export default [
 		files: ['**/*.js'],
 		rules: {
 			quotes: ['error', 'single', { allowTemplateLiterals: true, avoidEscape: true }],
-			'no-console': ['error', { allow: ['warn', 'error'] }], // Todo: remove warn and error too
+			'no-console': ['error', { allow: ['warn', 'error'] }],
 			'no-unused-vars': 'error',
+		},
+	},
+	{
+		plugins: { jest: pluginJest },
+		languageOptions: {
+			ecmaVersion: 'latest',
+			sourceType: 'module',
+			globals: {
+				...globals.node,
+				'jest/globals': true,
+			},
+			parserOptions: {
+				project: true,
+			},
+		},
+		files: ['**/*.e2e.spec.js'],
+		rules: {
+			'no-undef': 'off',
 		},
 	},
 ];

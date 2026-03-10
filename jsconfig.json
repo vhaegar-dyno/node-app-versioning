@@ -1,0 +1,27 @@
+{
+	"compilerOptions": {
+		// "ignoreDeprecations": "6.0",
+		"baseUrl": ".",
+		"paths": {
+			"@libs/*": ["src/libs/*"],
+			"@utils/*": ["src/utils/*"],
+			"@services/*": ["src/services/*"],
+			"@config/*": ["src/config/*"],
+			"@clients/*": ["src/clients/*"],
+			"@constants/*": ["src/constants/*"],
+			"@helpers/*": ["src/helpers/*"],
+			"@middlewares/*": ["src/middleware/*"],
+			"@modules/*": ["src/modules/*"],
+			"@testing/*": ["src/testing/*"],
+			"@logger": ["src/config/logger"],
+			"@core/*": ["src/modules/core/*"],
+			"@auth/*": ["src/modules/auth/*"],
+			"@devices/*": ["src/modules/devices/*"],
+			"@webhook/*": ["src/modules/webhook/*"],
+			"@logiq/*": ["src/modules/logiq/*"],
+			"@enums/*": ["src/libs/enums/*"],
+			"@/*": ["src/*"]
+		}
+	},
+	"include": ["src"]
+}

@@ -17,15 +17,22 @@ const envVarsSchema = Joi.object()
 		AWS_SECRET_ACCESS_KEY: Joi.string().required().description('AWS secret key'),
 		AWS_REGION: Joi.string().required().description('AWS region'),
 		AWS_BUCKET_NAME: Joi.string().required().description('AWS s3 bucket name'),
-		GMAIL_USERNAME: Joi.string().required().description('Gmail username to send mail'),
-		GMAIL_PASSWORD: Joi.string().required().description('Gmail password to send mail'),
-		GMAIL_SENDER_EMAIL: Joi.string().required().description('Gmail sender email'),
-		GMAIL_DISPLAY_NAME: Joi.string().required().description('Gmail display name'),
-		GMAIL_DEV_RECIPIENT: Joi.string()
+		EMAIL_USERNAME: Joi.string().required().description('Email username to send mail'),
+		EMAIL_PASSWORD: Joi.string().required().description('Email password to send mail'),
+		EMAIL_SENDER_EMAIL: Joi.string().required().description('Email sender email'),
+		EMAIL_DISPLAY_NAME: Joi.string().required().description('Email display name'),
+		EMAIL_DEV_RECIPIENT: Joi.string()
 			.required()
 			.description('Dev email to receive mails for testing'),
 		KAFKA_BROKER: Joi.string().required().description('Kafka broker'),
 		SUPER_ADMIN_USERNAME: Joi.string().required(),
+		HOME_ORGANIZATION: Joi.string().hex().required(),
+		REDIS_HOST: Joi.string().required(),
+		REDIS_PORT: Joi.string().required(),
+		SECURE_ENCRYPTION_KEY: Joi.string().required(),
+		SECURE_IV: Joi.string().required(),
+		V2_DOMAIN_URL: Joi.string().required(),
+		V3_DOMAIN_URL: Joi.string().required(),
 	})
 	.unknown();
 
@@ -40,12 +47,16 @@ module.exports = {
 	serverUrl: envVars.SERVER_URL,
 	whitelistIP: envVars.WHITELIST_IP,
 	connectionTimeout: envVars.CONNECTION_TIMEOUT * 1000,
-	jwtKey: envVars.JWT_SECRET_KEY,
+	secretKeys: {
+		jwtKey: envVars.JWT_SECRET_KEY,
+		interModuleKey: envVars.INTER_MODULE_SHARED_SECRET_KEY,
+	},
 	db: {
 		url: envVars.DB_URL,
 	},
 	home: {
 		superAdminUsername: envVars.SUPER_ADMIN_USERNAME,
+		orgId: envVars.HOME_ORGANIZATION,
 	},
 	aws: {
 		accessKeyId: envVars.AWS_ACCESS_KEY_ID,
@@ -53,14 +64,26 @@ module.exports = {
 		region: envVars.AWS_REGION,
 		bucketName: envVars.AWS_BUCKET_NAME,
 	},
-	gmail: {
-		username: envVars.GMAIL_USERNAME,
-		password: envVars.GMAIL_PASSWORD,
-		senderEmail: envVars.GMAIL_SENDER_EMAIL,
-		displayName: envVars.GMAIL_DISPLAY_NAME,
-		devEmail: envVars.GMAIL_DEV_RECIPIENT,
+	email: {
+		username: envVars.EMAIL_USERNAME,
+		password: envVars.EMAIL_PASSWORD,
+		senderEmail: envVars.EMAIL_SENDER_EMAIL,
+		displayName: envVars.EMAIL_DISPLAY_NAME,
+		devEmail: envVars.EMAIL_DEV_RECIPIENT,
 	},
 	kafka: {
 		broker: envVars.KAFKA_BROKER,
+	},
+	redis: {
+		host: envVars.REDIS_HOST,
+		port: envVars.REDIS_PORT,
+	},
+	urls: {
+		v2Url: envVars.V2_DOMAIN_URL,
+		v3Url: envVars.V3_DOMAIN_URL,
+	},
+	security: {
+		secureKey: envVars.SECURE_ENCRYPTION_KEY,
+		secureIv: envVars.SECURE_IV,
 	},
 };

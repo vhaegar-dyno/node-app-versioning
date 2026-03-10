@@ -1,9 +1,9 @@
 const bcrypt = require('bcrypt');
-const ApiError = require('../../../middleware/apiError');
+const ApiError = require('@middlewares/apiError');
 const User = require('./user.model');
-const JwtUtils = require('../../../utils/jwtUtils');
-const logger = require('../../../config/logger');
-const JoiValidationPipe = require('../../../middleware/joiValidation');
+const JwtUtils = require('@utils/jwtUtils');
+const logger = require('@config/logger');
+const JoiValidationPipe = require('@middlewares/joiValidation');
 const { createUserSchema } = require('./user.dto');
 
 class UserServices {

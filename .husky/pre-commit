@@ -1,9 +1,17 @@
 # Branch Naming Validation
 BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
 
-BYPASS_BRANCH="main"
+BYPASS_BRANCH_1="main"
+BYPASS_BRANCH_2="dev"
 
-if [ "$BRANCH_NAME" = "$BYPASS_BRANCH" ]; then
+# if [ "$BRANCH_NAME" = "$BYPASS_BRANCH" ]; then
+if [ "$BRANCH_NAME" = "$BYPASS_BRANCH_1" ] || [ "$BRANCH_NAME" = "$BYPASS_BRANCH_2" ]; then
+  # Run formatting and linting
+  # npm run format:fix
+  # npm run lint:fix
+
+  # Add the fixed files to staging
+  git add .
   exit 0
 fi
 
@@ -16,8 +24,8 @@ fi
 # echo "✅ Branch name is valid."
 
 # Run formatting and linting
-npm run format:fix
-npm run lint:fix
-
+# npm run format:fix
+# npm run lint:fix
+npx lint-staged
 # Add the fixed files to staging
-git add .
+# git add .

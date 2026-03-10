@@ -1,9 +1,10 @@
 const ApiError = require('./apiError');
+const config = require('@config/config');
 
 class Response {
 	constructor(res, success, err, data, message) {
-		var out = {
-			success: success,
+		let out = {
+			status: success,
 		};
 		if (success) {
 			out.message = message;
@@ -13,7 +14,8 @@ class Response {
 			return;
 		}
 
-		console.error(err.message);
+		console.error(err);
+		if (config.env !== 'testing') console.error(err.message);
 		if (err instanceof ApiError) {
 			out.message = err.message;
 			res.status(err.code).send(out);
@@ -24,11 +26,15 @@ class Response {
 	}
 
 	static success(res, message, data) {
-		return new Response(res, true, null, data, message);
+		if (!res.headersSent) {
+			return new Response(res, true, null, data, message);
+		}
 	}
 
 	static error(res, err) {
-		return new Response(res, false, err);
+		if (!res.headersSent) {
+			return new Response(res, false, err);
+		}
 	}
 }
 

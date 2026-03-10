@@ -1,7 +1,7 @@
 {
-	"name": "solar-logiq-backend-v3",
-	"version": "1.0.0",
-	"description": "",
+	"name": "holmium-boilerplate",
+	"version": "2.0.0",
+	"description": "A single unified boilerplate for all the node applications",
 	"keywords": [],
 	"license": "ISC",
 	"author": "Rahul Yadav",
@@ -9,7 +9,8 @@
 	"scripts": {
 		"cm": "cz",
 		"copy-env:dev": "copy .env.example .env.development",
-		"copy-env:prod": "copy .env.example .env.development",
+		"copy-env:prod": "copy .env.example .env.production",
+		"copy-env:test": "copy .env.development .env.testing",
 		"docker-flush:dev": "docker system prune",
 		"docker-up:dev": "docker compose up --build",
 		"format:check": "prettier . --check",
@@ -17,29 +18,57 @@
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
 		"prepare": "husky",
+		"dev": "cross-env NODE_ENV=development nodemon --legacy-watch src/server",
+		"prod": "cross-env NODE_ENV=production node src/server",
 		"start": "cross-env NODE_ENV=development node src/server",
 		"start:dev": "cross-env NODE_ENV=development nodemon --legacy-watch src/server",
 		"start:prod": "cross-env NODE_ENV=production node src/server",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"start:verbose": "cross-env NODE_ENV=development nodemon --trace-warnings --legacy-watch src/server",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"test:e2e": "cross-env NODE_ENV=testing jest --config=jest-e2e.json",
+		"test:watch": "jest --watch"
 	},
 	"config": {
 		"commitizen": {
 			"path": "cz-customizable"
 		}
 	},
+	"jest": {
+		"collectCoverageFrom": [
+			"**/*.js"
+		],
+		"coverageDirectory": "../coverage",
+		"moduleFileExtensions": [
+			"js",
+			"json",
+			"node"
+		],
+		"rootDir": "src",
+		"testEnvironment": "node",
+		"testRegex": ".*\\.e2e\\.spec\\.js$",
+		"transform": {}
+	},
 	"dependencies": {
 		"@aws-sdk/client-s3": "^3.758.0",
 		"archiver": "^7.0.1",
+		"axios": "^1.9.0",
 		"bcrypt": "^5.1.1",
 		"cors": "^2.8.5",
 		"cross-env": "^7.0.3",
+		"crypto-js": "^4.2.0",
+		"dotenv": "^17.2.2",
 		"dotenv-flow": "^4.1.0",
 		"express": "^4.21.2",
 		"express-rate-limit": "^7.5.0",
 		"helmet": "^8.0.0",
+		"httpntlm": "^1.8.13",
+		"ioredis": "^5.6.1",
 		"joi": "^17.13.3",
 		"jsonwebtoken": "^9.0.2",
+		"lodash": "^4.17.21",
+		"module-alias": "^2.2.3",
 		"moment": "^2.30.1",
+		"moment-timezone": "^0.5.48",
 		"mongoose": "^8.10.1",
 		"morgan": "^1.10.0",
 		"multer": "^1.4.5-lts.1",
@@ -56,14 +85,38 @@
 		"cz-customizable": "^7.4.0",
 		"eslint": "^9.21.0",
 		"eslint-config-prettier": "^10.0.1",
+		"eslint-plugin-jest": "^28.11.0",
 		"globals": "^16.0.0",
 		"husky": "^9.1.7",
-		"lint-staged": "^15.4.3",
+		"jest": "^29.7.0",
+		"lint-staged": "^15.5.2",
+		"mongodb-memory-server": "^10.1.4",
+		"msw": "^2.7.5",
 		"nodemon": "^3.1.9",
 		"prettier": "^3.5.2",
-		"prettier-plugin-packagejson": "^2.5.8"
+		"prettier-plugin-packagejson": "^2.5.8",
+		"supertest": "^7.1.0"
 	},
 	"engines": {
 		"node": ">=20"
+	},
+	"_moduleAliases": {
+		"@libs": "src/libs",
+		"@config": "src/config",
+		"@clients": "src/clients",
+		"@utils": "src/utils",
+		"@constants": "src/constants",
+		"@helpers": "src/helpers",
+		"@middlewares": "src/middleware",
+		"@modules": "src/modules",
+		"@testing": "src/testing",
+		"@logger": "src/config/logger",
+		"@core": "src/modules/core",
+		"@auth": "src/modules/auth",
+		"@devices": "src/modules/devices",
+		"@webhook": "src/modules/webhook",
+		"@logiq": "src/modules/logiq",
+		"@enums": "src/libs/enums",
+		"@": "src"
 	}
 }
